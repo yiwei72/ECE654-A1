@@ -4,9 +4,19 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.1.1
+  codecov: codecov/codecov@3.0.0
+
+jobs:
+  upload_report:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - codecov/upload
+
+
 
 workflows:
-    example-workflow:
+    test_code:
       jobs:
         - python/test:
             ensure-test-tool: true 
@@ -16,3 +26,5 @@ workflows:
             test-tool: pytest 
             venv-cache: true 
             version: '3.7' 
+        - upload_report
+      
