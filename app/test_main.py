@@ -12,7 +12,7 @@ def test_true_negative():
     assert main_method("test_cases/true_negative.py") == False
     
 def test_false_positive():
-    pass
+    assert main_method("test_cases/false_positive.py") == True
 
 def test_false_positive():
-    pass
+    assert main_method("test_cases/false_negative.py") == False
