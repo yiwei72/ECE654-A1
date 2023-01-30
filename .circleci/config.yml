@@ -1,30 +1,23 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-
 orbs:
-  python: circleci/python@2.1.1
-  codecov: codecov/codecov@3.0.0
+  codecov: codecov/codecov@3
 
 jobs:
-  upload_report:
+  build:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/python:3.10
     steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Run tests and collect coverage
+          command: pytest --cov app
       - codecov/upload
 
-
-
-workflows:
-    test_code:
-      jobs:
-        - python/test:
-            ensure-test-tool: true 
-            fail-if-missing-tool: false 
-            include-branch-in-cache-key: true 
-            pypi-cache: true 
-            test-tool: pytest 
-            venv-cache: true 
-            version: '3.7' 
-        - upload_report
-      
+workflow:
+  version: 2.1
+  build-test:
+    jobs:
+      - build
