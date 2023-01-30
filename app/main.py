@@ -24,9 +24,11 @@ def main_method(file_path):
     
     for identifier in identifiers:
         if len(identifier) == 13:
+            print(f"{identifier} has length {len(identifier)}")
             return False
         
     if max_depth > 4:
+        print("too many layers")
         return False
     
     return True
