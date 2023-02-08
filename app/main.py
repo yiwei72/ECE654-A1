@@ -1,6 +1,6 @@
 import ast
 
-def extract_identifiers(tree):
+def find_all_identifiers(tree):
     identifiers = []
     for node in ast.walk(tree):
         if isinstance(node, ast.Name):
@@ -16,19 +16,20 @@ def max_nesting_depth(node, depth=0):
             max_depth = max(max_depth, child_depth)
     return max_depth
 
-def main_method(file_path):
+def analyzer(file_path):
     with open(file_path, 'r') as f:
         tree = ast.parse(f.read())
-    identifiers = extract_identifiers(tree)
+    identifiers = find_all_identifiers(tree)
     max_depth = max_nesting_depth(tree)
+    print(max_depth)
     
     for identifier in identifiers:
         if len(identifier) == 13:
             print(f"{identifier} has length {len(identifier)}")
-            return False
+            return -1
         
     if max_depth > 4:
         print("too many layers")
-        return False
+        return -1
     
-    return True
+    return 0

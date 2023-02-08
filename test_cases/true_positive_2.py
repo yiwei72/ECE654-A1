@@ -1,5 +1,5 @@
-def test_method():
+def foo():
     return True
 
 if __name__ == '__main__':
-    test_method()
+    foo()
