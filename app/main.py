@@ -21,7 +21,6 @@ def analyzer(file_path):
         tree = ast.parse(f.read())
     identifiers = find_all_identifiers(tree)
     max_depth = max_nesting_depth(tree)
-    print(max_depth)
     
     for identifier in identifiers:
         if len(identifier) == 13:
